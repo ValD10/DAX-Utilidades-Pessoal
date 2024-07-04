@@ -1,0 +1,32 @@
+DCALENDAR =
+
+VAR local = 'Ponto Extra'[Data Hora Tarefa]
+VAR loc-2 = 'Abordagem'[Data Hora Tarefa]
+VAR loc-3 = 'Abordagem'[Data Hora Tarefa]
+
+VAR UDATA_PTEXTRA=
+    CALCULATE(MAX(local),ALL(local))
+
+VAR UDATA_ABORDAGEM=
+    
+    CALCULATE(MAX(loc.2),ALL(loc.2))
+
+    CALCULATE(MAX(loc.3),ALL(loc-3))*/
+
+ RETURN
+    ADDCOLUMNS(
+        CALENDAR(
+            MIN(local),
+            MAX(loc-2)
+        )          
+         ,"ORDEM",FORMAT([Date],"YYMMDD")
+        ,"DIA/SEMANA",UPPER(FORMAT([Date],"DDD"))
+        ,"ORDEM/DIA",WEEKDAY([Date],2)
+        ,"DIA/MES/SEMANA",UPPER(FORMAT([Date],"DD/MMM"))  & UNICHAR(10) &  UPPER(FORMAT([Date],"DDD"))
+        ,"MES NÚMERO",FORMAT([Date],"MM")
+        ,"ANO",FORMAT([Date],"YYYY")
+        ,"ORDEM MES-ANO",FORMAT([Date],"YYMM")
+        ,"MÊS",UPPER(FORMAT([Date],"MMM/YY"))
+        ,"SEMANA","W" & FORMAT(WEEKNUM([Date],11),"00") & "/" & FORMAT([Date],"YY")
+        ,"ORDEM SEMANA",FORMAT([Date],"YY")&WEEKNUM([Date],11)
+)
